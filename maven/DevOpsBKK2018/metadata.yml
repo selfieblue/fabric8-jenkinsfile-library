@@ -4,4 +4,5 @@ environments:
 stages:
   - 'canary image'
   - 'integration test'
+  - 'send notification'
   - 'Rolling upgrade Staging'

@@ -24,6 +24,7 @@ try {
 }
 
 def canaryVersion = "${versionPrefix}.${env.BUILD_NUMBER}"
+def jobNane = "${env.JOB_NAME}"
 def utils = new io.fabric8.Utils()
 def label = "buildpod.${env.JOB_NAME}.${env.BUILD_NUMBER}".replace('-', '_').replace('/', '_')
 
@@ -47,12 +48,13 @@ mavenNode{
       itestPattern = localItestPattern
     }
 
-    stage 'Send Nofication'
-    acnSendAlertToWebhook {
+    stage('Send Notification'){
+      acnSendAlertToWebhook {
         urlWebhook = "https://chat.googleapis.com/v1/spaces/AAAA764gDZk/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=ME5EjucS4vsPmFKeq70N4V-LxniLOT5XZaUfpVjt6Yk%3D"
         envName = 'DevOps BKK 2018 Testing Environment'
         stageCurrent = "DevOps BKK 2018 : Deploying Version : ${canaryVersion}"
-        appName = "${env.JOB_NAME}"
+        appName = "${jobNane}"
+      }
     }
 
     stage 'Rollout Staging'
