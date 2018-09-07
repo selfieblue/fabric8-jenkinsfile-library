@@ -1,5 +1,5 @@
 #!/usr/bin/groovy
-@Library('github.com/fabric8io/fabric8-pipeline-library@v2.2.309')
+@Library('github.com/selfieblue/fabric8-pipeline-library@master')
 
 def failIfNoTests = ""
 try {
@@ -45,6 +45,14 @@ mavenNode{
       environment = 'Testing'
       failIfNoTests = localFailIfNoTests
       itestPattern = localItestPattern
+    }
+
+    stage 'Send Nofication'
+    acnSendAlertToWebhook {
+        urlWebhook = "https://chat.googleapis.com/v1/spaces/AAAA764gDZk/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=ME5EjucS4vsPmFKeq70N4V-LxniLOT5XZaUfpVjt6Yk%3D"
+        envName = 'DevOps BKK 2018 Testing Environment'
+        stageCurrent = "DevOps BKK 2018 : Deploying Version : ${canaryVersion}"
+        appName = "${env.JOB_NAME}"
     }
 
     stage 'Rollout Staging'
