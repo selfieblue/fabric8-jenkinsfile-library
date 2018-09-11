@@ -57,9 +57,8 @@ mavenNode{
     }
 
     stage('Send Notification'){
-      acnSendAlertToWebhook {
-        urlWebhook = "https://chat.googleapis.com/v1/spaces/AAAA764gDZk/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=ME5EjucS4vsPmFKeq70N4V-LxniLOT5XZaUfpVjt6Yk%3D"
-        envName = 'DevOps BKK 2018 Testing Environment'
+      sendGoogleAlertToWebhook {
+        urlWebhook = "https://chat.googleapis.com/xxxxxxxxxx'
         stageCurrent = "DevOps BKK 2018 : Deploying Version : ${canaryVersion}"
         appName = "${jobNane}"
       }
